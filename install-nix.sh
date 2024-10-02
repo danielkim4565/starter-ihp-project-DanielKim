@@ -2,13 +2,14 @@ sh <(curl -L https://nixos.org/nix/install)
 
 . /home/vscode/.nix-profile/etc/profile.d/nix.sh
 
+sh ./usr/local/share/nix-entrypoint.sh; ( if [ ! -e "Main.hs" ]; then rm -rf /tmp/ihp-boilerplate; git clone "git@github.com:digitallyinduced/ihp-boilerplate.git" /tmp/ihp-boilerplate; rm -rf /tmp/ihp-boilerplate/.git; cp -r /tmp/ihp-boilerplate/. .; fi) && git add . && nix develop --accept-flake-config --impure --command make -s all; if [ ! -d "Web" ]; then (nix develop --accept-flake-config --impure --command new-application Web) fi
+
 sudo apt update
 sudo apt install direnv
 
 nix-env -iA devenv -f https://github.com/NixOS/nixpkgs/tarball/nixpkgs-unstable
 nix-env -iA cachix -f https://cachix.org/api/v1/install
 
-sh ./usr/local/share/nix-entrypoint.sh; ( if [ ! -e "Main.hs" ]; then rm -rf /tmp/ihp-boilerplate; git clone "git@github.com:digitallyinduced/ihp-boilerplate.git" /tmp/ihp-boilerplate; rm -rf /tmp/ihp-boilerplate/.git; cp -r /tmp/ihp-boilerplate/. .; fi) && git add . && nix develop --accept-flake-config --impure --command make -s all; if [ ! -d "Web" ]; then (nix develop --accept-flake-config --impure --command new-application Web) fi
 
 echo "trusted-users = root vscode" | sudo tee -a /etc/nix/nix.conf && sudo pkill nix-daemon; cachix use cachix; cachix use digitallyinduced;
 
