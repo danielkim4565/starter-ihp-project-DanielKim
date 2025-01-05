@@ -4,6 +4,9 @@
     "PROJECT_DIR": "${containerWorkspaceFolder}"
   },
   "remoteUser": "vscode",
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/workspace,type=bind"
+  ],
   "customizations": {
     "vscode": {
       "settings": {
